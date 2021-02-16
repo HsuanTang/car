@@ -58,7 +58,6 @@
                             <div>
                                 <span class="tag is-large navy" v-if="car.價格">{{ car.價格 }} 萬</span>
                                 <span class="tag is-large blue" v-if="car.油耗">油耗 {{ car.油耗 }}</span>
-                                <span class="tag is-large aqua" v-if="car.油電">{{ car.油電 }}</span>
                             </div>
                             <span class="tag is-large teal" v-if="car.定速">{{ car.定速 }}</span>
                             <span class="tag is-large olive" v-if="car.氣囊">{{ car.氣囊 }} 氣囊</span>
@@ -68,6 +67,7 @@
                             <span class="tag is-large orange" v-if="car.偏維">{{ car.偏維 }}</span>
                             <span class="tag is-large red" v-if="car.上坡">{{ car.上坡 }}</span>
                             <span class="tag is-large maroon" v-if="car.偏警">{{ car.偏警 }}</span>
+                            <span class="tag is-large fuchsia" v-if="car.備註">{{ car.備註 }}</span>
                         </div>
                     </article>
                 </div>
