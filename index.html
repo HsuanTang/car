@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>百萬左右熱門新車主被動安全配備整理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>百萬左右熱門新車主被動安全配備整理</h1>
+            <div class="block">
+                <div class="field has-addons">
+                    <p class="control">
+                        <a class="button is-static">
+                            價格下限
+                        </a>
+                    </p>
+                    <p class="control">
+                        <input class="input" placeholder="價格下限" v-model="minPrice" type="number">
+                    </p>
+                    <p class="control">
+                        <a class="button is-static">
+                            價格上限
+                        </a>
+                    </p>
+                    <p class="control">
+                        <input class="input" placeholder="價格上限" v-model="maxPrice" type="number">
+                    </p>
+                </div>
+                <div>
+                    <button class="button" @click="我要氣囊有六顆以上 = !我要氣囊有六顆以上;" :class="{ 'is-primary': 我要氣囊有六顆以上 == true }">我要氣囊有六顆以上</button>
+                    <button class="button" @click="我要自煞 = !我要自煞;" :class="{ 'is-primary': 我要自煞 == true }">我要自煞</button>
+                    <button class="button" @click="我要前預 = !我要前預;" :class="{ 'is-primary': 我要前預 == true }">我要前預</button>
+                    <button class="button" @click="我要盲點 = !我要盲點;" :class="{ 'is-primary': 我要盲點 == true }">我要盲點</button>
+                    <button class="button" @click="我要偏維 = !我要偏維;" :class="{ 'is-primary': 我要偏維 == true }">我要偏維</button>
+                    <button class="button" @click="我要上坡 = !我要上坡;" :class="{ 'is-primary': 我要上坡 == true }">我要上坡</button>
+                    <button class="button" @click="我要偏警 = !我要偏警;" :class="{ 'is-primary': 我要偏警 == true }">我要偏警</button>
+                </div>
+                <div>
+                    <button class="button" @click="if (我要定速 == '定速') 我要定速 = ''; else 我要定速 = '定速';" :class="{ 'is-primary': 我要定速 == '定速' }">我要定速</button>
+                    <button class="button" @click="if (我要定速 == '半Ａ') 我要定速 = ''; else 我要定速 = '半Ａ';" :class="{ 'is-primary': 我要定速 == '半Ａ' }">我要半Ａ</button>
+                    <button class="button" @click="if (我要定速 == '全Ａ') 我要定速 = ''; else 我要定速 = '全Ａ';" :class="{ 'is-primary': 我要定速 == '全Ａ' }">我要全Ａ</button>
+                </div>
+            </div>
+            <div class="columns is-multiline">
+                <div class="column is-one-third" v-for="car in filteredCars">
+                    <article class="message">
+                        <div class="message-header">
+                            <span>{{ car.廠牌 }}</span>
+                            <span>{{ car.車名 }}</span>
+                            <span>{{ car.形式 }}</span>
+                        </div>
+                        <div class="message-body">
+                            <div>
+                                <span class="tag is-large navy" v-if="car.價格">{{ car.價格 }} 萬</span>
+                                <span class="tag is-large blue" v-if="car.油耗">油耗 {{ car.油耗 }}</span>
+                                <span class="tag is-large aqua" v-if="car.油電">{{ car.油電 }}</span>
+                            </div>
+                            <span class="tag is-large teal" v-if="car.定速">{{ car.定速 }}</span>
+                            <span class="tag is-large olive" v-if="car.氣囊">{{ car.氣囊 }} 氣囊</span>
+                            <span class="tag is-large green" v-if="car.自煞">{{ car.自煞 }}</span>
+                            <span class="tag is-large lime" v-if="car.前預">{{ car.前預 }}</span>
+                            <span class="tag is-large yellow" v-if="car.盲點">{{ car.盲點 }}</span>
+                            <span class="tag is-large orange" v-if="car.偏維">{{ car.偏維 }}</span>
+                            <span class="tag is-large red" v-if="car.上坡">{{ car.上坡 }}</span>
+                            <span class="tag is-large maroon" v-if="car.偏警">{{ car.偏警 }}</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./seed.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
