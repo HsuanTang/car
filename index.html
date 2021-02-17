@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
     <link rel="stylesheet" href="./style.css?20210216">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FB3GRBV0PF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-FB3GRBV0PF');
+    </script>
 </head>
 
 <body>
@@ -32,7 +41,8 @@
                     </p>
                 </div>
                 <div>
-                    <button class="button" @click="我要氣囊有六顆以上 = !我要氣囊有六顆以上;" :class="{ 'is-primary': 我要氣囊有六顆以上 == true }">我要氣囊有六顆以上</button>
+                    <button class="button" @click="我要氣囊有六顆以上 = !我要氣囊有六顆以上;"
+                        :class="{ 'is-primary': 我要氣囊有六顆以上 == true }">我要氣囊有六顆以上</button>
                     <button class="button" @click="我要自煞 = !我要自煞;" :class="{ 'is-primary': 我要自煞 == true }">我要自煞</button>
                     <button class="button" @click="我要前預 = !我要前預;" :class="{ 'is-primary': 我要前預 == true }">我要前預</button>
                     <button class="button" @click="我要盲點 = !我要盲點;" :class="{ 'is-primary': 我要盲點 == true }">我要盲點</button>
@@ -41,9 +51,12 @@
                     <button class="button" @click="我要偏警 = !我要偏警;" :class="{ 'is-primary': 我要偏警 == true }">我要偏警</button>
                 </div>
                 <div>
-                    <button class="button" @click="if (我要定速 == '定速') 我要定速 = ''; else 我要定速 = '定速';" :class="{ 'is-primary': 我要定速 == '定速' }">我要定速</button>
-                    <button class="button" @click="if (我要定速 == '半Ａ') 我要定速 = ''; else 我要定速 = '半Ａ';" :class="{ 'is-primary': 我要定速 == '半Ａ' }">我要半Ａ</button>
-                    <button class="button" @click="if (我要定速 == '全Ａ') 我要定速 = ''; else 我要定速 = '全Ａ';" :class="{ 'is-primary': 我要定速 == '全Ａ' }">我要全Ａ</button>
+                    <button class="button" @click="if (我要定速 == '定速') 我要定速 = ''; else 我要定速 = '定速';"
+                        :class="{ 'is-primary': 我要定速 == '定速' }">我要定速</button>
+                    <button class="button" @click="if (我要定速 == '半Ａ') 我要定速 = ''; else 我要定速 = '半Ａ';"
+                        :class="{ 'is-primary': 我要定速 == '半Ａ' }">我要半Ａ</button>
+                    <button class="button" @click="if (我要定速 == '全Ａ') 我要定速 = ''; else 我要定速 = '全Ａ';"
+                        :class="{ 'is-primary': 我要定速 == '全Ａ' }">我要全Ａ</button>
                 </div>
             </div>
             <div class="columns is-multiline">
