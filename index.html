@@ -5,7 +5,7 @@
     <title>百萬左右熱門新車主被動安全配備整理</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
-    <link rel="stylesheet" href="./style.css?20210222">
+    <link rel="stylesheet" href="./style.css?20210310">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FB3GRBV0PF"></script>
@@ -83,6 +83,10 @@
                             <span class="tag is-large purple" v-if="car.馬力">{{ car.馬力 }} 馬力</span>
                             <span class="tag is-large black" v-if="car.扭力">{{ car.扭力 }} 扭力</span>
                             <span class="tag is-large gray" v-if="car.變速">{{ car.變速 }}</span>
+                            <span class="tag is-large silver" v-if="car.車長">{{ car.車長 }}</span>
+                            <span class="tag is-large color01" v-if="car.車寬">{{ car.車寬 }}</span>
+                            <span class="tag is-large color02" v-if="car.車高">{{ car.車高 }}</span>
+                            <span class="tag is-large color03" v-if="car.行李容積">{{ car.行李容積 }}</span>
                         </div>
                     </article>
                 </div>
@@ -90,8 +94,9 @@
         </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="./seed.js?20210222"></script>
-    <script src="./main.js?20210222"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./seed.js?20210310"></script>
+    <script src="./main.js?20210310"></script>
 </body>
 
 </html>
