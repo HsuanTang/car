@@ -48,14 +48,44 @@
                     <button class="button" @click="我要自煞 = !我要自煞;" :class="{ 'is-primary': 我要自煞 == true }">我要自煞</button>
                     <button class="button" @click="我要前預 = !我要前預;" :class="{ 'is-primary': 我要前預 == true }">我要前預</button>
                     <button class="button" @click="我要盲點 = !我要盲點;" :class="{ 'is-primary': 我要盲點 == true }">我要盲點</button>
-                    <button class="button" @click="我要偏維 = !我要偏維;" :class="{ 'is-primary': 我要偏維 == true }">我要偏維</button>
-                    <button class="button" @click="我要上坡 = !我要上坡;" :class="{ 'is-primary': 我要上坡 == true }">我要上坡</button>
-                    <button class="button" @click="我要偏警 = !我要偏警;" :class="{ 'is-primary': 我要偏警 == true }">我要偏警</button>
                 </div>
-                <div>
-                    <button class="button" @click="if (我要定速 == '定速') 我要定速 = ''; else 我要定速 = '定速';" :class="{ 'is-primary': 我要定速 == '定速' }">我要定速</button>
-                    <button class="button" @click="if (我要定速 == '半Ａ') 我要定速 = ''; else 我要定速 = '半Ａ';" :class="{ 'is-primary': 我要定速 == '半Ａ' }">我要半Ａ</button>
-                    <button class="button" @click="if (我要定速 == '全Ａ') 我要定速 = ''; else 我要定速 = '全Ａ';" :class="{ 'is-primary': 我要定速 == '全Ａ' }">我要全Ａ</button>
+                <br>
+                <div class="field has-addons">
+                    <div class="control">
+                        <a class="button is-static">
+                            關於偏離:
+                        </a>
+                    </div>
+                    <div class="control">
+                        <button class="button" @click="我要偏維 = ''; 我要偏警 = '';" :class="{ 'is-primary': 我要偏維 == '' && 我要偏警 == '' }">不在乎</button>
+                        <button class="button" @click="我要偏維 = ''; 我要偏警 = true;" :class="{ 'is-primary': 我要偏維 == '' && 我要偏警 == true }">至少警示</button>
+                        <button class="button" @click="我要偏維 = true; 我要偏警 = '';" :class="{ 'is-primary': 我要偏維 == true && 我要偏警 == '' }">車輛主動拉回</button>
+                    </div>
+                </div>
+                <div class="field has-addons">
+                    <div class="control">
+                        <a class="button is-static">
+                            關於上下坡:
+                        </a>
+                    </div>
+                    <div class="control">
+                        <button class="button" @click="我要上坡 = '';" :class="{ 'is-primary': 我要上坡 == '' }">不在乎</button>
+                        <button class="button" @click="我要上坡 = '上坡';" :class="{ 'is-primary': 我要上坡 == '上坡' }">至少上坡</button>
+                        <button class="button" @click="我要上坡 = '斜坡';" :class="{ 'is-primary': 我要上坡 == '斜坡' }">要上坡+下坡</button>
+                    </div>
+                </div>
+                <div class="field has-addons">
+                    <div class="control">
+                        <a class="button is-static">
+                            關於巡航:
+                        </a>
+                    </div>
+                    <div class="control">
+                        <button class="button" @click="我要定速 = '';" :class="{ 'is-primary': 我要定速 == '' }">不在乎</button>
+                        <button class="button" @click="我要定速 = '定速';" :class="{ 'is-primary': 我要定速 == '定速' }">至少傳統定速</button>
+                        <button class="button" @click="我要定速 = '半Ａ';" :class="{ 'is-primary': 我要定速 == '半Ａ' }">至少半速域</button>
+                        <button class="button" @click="我要定速 = '全Ａ';" :class="{ 'is-primary': 我要定速 == '全Ａ' }">至少全速域</button>
+                    </div>
                 </div>
             </div>
             <div class="columns is-multiline">

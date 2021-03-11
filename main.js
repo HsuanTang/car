@@ -45,20 +45,26 @@ const carApp = {
                     return car.偏維;
                 });
             }
-            if (this.我要上坡) {
-                cars = cars.filter(function(car) {
-                    return car.上坡;
-                });
-            }
             if (this.我要偏警) {
                 cars = cars.filter(function(car) {
                     return car.偏警 || car.偏維;
                 });
             }
+            if (this.我要上坡) {
+                if (this.我要上坡 == "上坡") {
+                    cars = cars.filter(function(car) {
+                        return car.上坡 == "上坡" || car.上坡 == "斜坡";
+                    });
+                } else if (this.我要上坡 == "斜坡") {
+                    cars = cars.filter(function(car) {
+                        return car.上坡 == "斜坡";
+                    });
+                }
+            }
             if (this.我要定速) {
                 if (this.我要定速 == "定速") {
                     cars = cars.filter(function(car) {
-                        return car.定速;
+                        return car.定速 == "定" || car.定速 == "半Ａ" || car.定速 == "全Ａ";
                     });
                 } else if (this.我要定速 == "半Ａ") {
                     cars = cars.filter(function(car) {
@@ -69,9 +75,6 @@ const carApp = {
                         return car.定速 == "全Ａ";
                     });
                 }
-                cars = cars.filter(function(car) {
-                    return car.定速;
-                });
             }
             if (this.minPrice) {
                 var minPrice = this.minPrice;
