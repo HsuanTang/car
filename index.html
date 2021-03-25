@@ -87,6 +87,28 @@
                         <button class="button" @click="我要定速 = '全Ａ';" :class="{ 'is-primary': 我要定速 == '全Ａ' }">至少全速域</button>
                     </div>
                 </div>
+                <div class="field has-addons">
+                    <div class="control">
+                        <a class="button is-static">
+                            關於產地:
+                        </a>
+                    </div>
+                    <div class="control">
+                        <button class="button" @click="我要進口 = '';" :class="{ 'is-primary': 我要進口 == '' }">不在乎</button>
+                        <button class="button" @click="我要進口 = '我要進口車';" :class="{ 'is-primary': 我要進口 == '我要進口車' }">我要進口車</button>
+                        <button class="button" @click="我要進口 = '我不要進口車';" :class="{ 'is-primary': 我要進口 == '我不要進口車' }">我不要進口車</button>
+                    </div>
+                    <div class="control">
+                        <a class="button is-static">
+                            產地:
+                        </a>
+                    </div>
+                    <div class="control">
+                        <button class="button" @click="if (我要產地.includes(產地)) 我要產地.splice(我要產地.indexOf(產地), 1); else 我要產地.push(產地);" :class="{ 'is-primary': 我要產地.includes(產地) }" v-for="產地 in 產地s">
+                            {{ 產地 }}
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="columns is-multiline">
                 <div class="column is-one-third" v-for="car in filteredCars">
@@ -98,25 +120,35 @@
                         </div>
                         <div class="message-body">
                             <div>
-                                <span class="tag is-large navy" v-if="car.價格">{{ car.價格 }} 萬</span>
-                                <span class="tag is-large blue" v-if="car.油耗">油耗 {{ car.油耗 }}</span>
+                                <span class="tag is-medium navy" v-if="car.價格">{{ car.價格 }} 萬</span>
+                                <span class="tag is-medium blue" v-if="car.油耗">油耗 {{ car.油耗 }}</span>
+                                <span class="tag is-medium olive" v-if="car.氣囊">{{ car.氣囊 }} 氣囊</span>
                             </div>
-                            <span class="tag is-large teal" v-if="car.定速">{{ car.定速 }}</span>
-                            <span class="tag is-large olive" v-if="car.氣囊">{{ car.氣囊 }} 氣囊</span>
-                            <span class="tag is-large green" v-if="car.自煞">{{ car.自煞 }}</span>
-                            <span class="tag is-large lime" v-if="car.前預">{{ car.前預 }}</span>
-                            <span class="tag is-large yellow" v-if="car.盲點">{{ car.盲點 }}</span>
-                            <span class="tag is-large orange" v-if="car.偏維">{{ car.偏維 }}</span>
-                            <span class="tag is-large red" v-if="car.上坡">{{ car.上坡 }}</span>
-                            <span class="tag is-large maroon" v-if="car.偏警">{{ car.偏警 }}</span>
-                            <span class="tag is-large fuchsia" v-if="car.備註">{{ car.備註 }}</span>
-                            <span class="tag is-large purple" v-if="car.馬力">{{ car.馬力 }} 馬力</span>
-                            <span class="tag is-large black" v-if="car.扭力">{{ car.扭力 }} 扭力</span>
-                            <span class="tag is-large gray" v-if="car.變速">{{ car.變速 }}</span>
-                            <span class="tag is-large silver" v-if="car.車長">{{ car.車長 }}</span>
-                            <span class="tag is-large color01" v-if="car.車寬">{{ car.車寬 }}</span>
-                            <span class="tag is-large color02" v-if="car.車高">{{ car.車高 }}</span>
-                            <span class="tag is-large color03" v-if="car.行李容積">{{ car.行李容積 }}</span>
+                            <div>
+                                <span class="tag is-medium green" v-if="car.自煞">{{ car.自煞 }}</span>
+                                <span class="tag is-medium lime" v-if="car.前預">{{ car.前預 }}</span>
+                                <span class="tag is-medium yellow" v-if="car.盲點">{{ car.盲點 }}</span>
+                                <span class="tag is-medium orange" v-if="car.偏維">{{ car.偏維 }}</span>
+                                <span class="tag is-medium red" v-if="car.上坡">{{ car.上坡 }}</span>
+                                <span class="tag is-medium maroon" v-if="car.偏警">{{ car.偏警 }}</span>
+                            </div>
+                            <div>
+                                <span class="tag is-medium purple" v-if="car.馬力">{{ car.馬力 }} 馬力</span>
+                                <span class="tag is-medium black" v-if="car.扭力">{{ car.扭力 }} 扭力</span>
+                                <span class="tag is-medium gray" v-if="car.變速">{{ car.變速 }}</span>
+                            </div>
+                            <div>
+                                <span class="tag is-medium silver" v-if="car.車長">長{{ car.車長 }}</span>
+                                <span class="tag is-medium color01" v-if="car.車寬">寬{{ car.車寬 }}</span>
+                                <span class="tag is-medium color02" v-if="car.車高">高{{ car.車高 }}</span>
+                                <span class="tag is-medium color03" v-if="car.行李容積">行李{{ car.行李容積 }}</span>
+                            </div>
+                            <div>
+                                <span class="tag is-medium teal" v-if="car.定速">{{ car.定速 }}</span>
+                                <span class="tag is-medium fuchsia" v-if="car.備註">{{ car.備註 }}</span>
+                                <span class="tag is-medium color04" v-if="car.進口">{{ car.進口 }}</span>
+                                <span class="tag is-medium color05" v-if="car.動力系統">{{ car.動力系統 }}</span>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -126,7 +158,7 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./seed.js?20210310"></script>
-    <script src="./main.js?20210311"></script>
+    <script src="./main.js?20210325"></script>
 </body>
 
 </html>

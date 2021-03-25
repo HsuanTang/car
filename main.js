@@ -2,6 +2,7 @@ const carApp = {
     data() {
         return {
             cars: [], //Seed.cars,
+            產地s: [],
             我要氣囊有六顆以上: false,
             我要自煞: false,
             我要前預: false,
@@ -10,6 +11,8 @@ const carApp = {
             我要上坡: false,
             我要偏警: false,
             我要定速: "",
+            我要進口: "",
+            我要產地: [],
             minPrice: 40,
             maxPrice: 300
         }
@@ -76,6 +79,23 @@ const carApp = {
                     });
                 }
             }
+            if (this.我要進口) {
+                if (this.我要進口 == "我要進口車") {
+                    cars = cars.filter(function(car) {
+                        return car.進口;
+                    });
+                } else if (this.我要進口 == "我不要進口車") {
+                    cars = cars.filter(function(car) {
+                        return !car.進口;
+                    });
+                }
+            }
+            if (this.我要產地.length != 0) {
+                var 我要產地 = this.我要產地
+                cars = cars.filter(function(car) {
+                    return 我要產地.includes(car.進口);
+                });
+            }
             if (this.minPrice) {
                 var minPrice = this.minPrice;
                 cars = cars.filter(function(car) {
@@ -93,6 +113,7 @@ const carApp = {
     },
     mounted() {
         var cars = this.cars;
+        var 產地s = this.產地s;
         axios
             .get("https://spreadsheets.google.com/feeds/list/1mhzx27NSTiFYdhkNqU7j-tXExtz-1EzNC0ayTHFZDQc/1/public/values?alt=json")
             .then(function(response) {
@@ -120,7 +141,10 @@ const carApp = {
                         "車高": value.gsx$車高.$t,
                         "行李容積": value.gsx$行李容積.$t,
                         "移除": value.gsx$移除.$t,
+                        "進口": value.gsx$進口.$t,
+                        "動力系統": value.gsx$動力系統.$t,
                     };
+                    if (!產地s.includes(car.進口) && car.進口) 產地s.push(car.進口);
                     cars.push(car);
                 });
             });
