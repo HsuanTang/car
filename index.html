@@ -175,13 +175,18 @@
                                 <span class="tag is-medium color04" v-if="car.進口">{{ car.進口 }}</span>
                                 <span class="tag is-medium color05" v-if="car.動力系統">{{ car.動力系統 }}</span>
                             </div>
+                            <radar-chart :自煞="car.自煞" :後煞="car.後煞" :置中="car.置中" :斜坡="car.斜坡" :環景="car.環景" :盲點="car.盲點" :自停="car.自停"></radar-chart>
                         </div>
                     </article>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/vue@next"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./seed.js?20210310"></script>
     <script src="./main.js?20210731"></script>

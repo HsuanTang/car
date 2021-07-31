@@ -1,7 +1,76 @@
-const carApp = {
+Vue.component('radar-chart', {
+    extends: VueChartJs.Radar,
+    props: ['自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
+    mounted() {
+        var 自煞data = 0.1;
+        var 後煞data = 0.1;
+        var 置中data = 0.1;
+        var 斜坡data = 0.1;
+        var 環景data = 0.1;
+        var 盲點data = 0.1;
+        var 自停data = 0.1;
+        if (this.自煞 == "自煞") {
+            自煞data = 1;
+        } else if (this.自煞 == "前預") {
+            自煞data = 0.5;
+        }
+
+        if (this.後煞 == "後煞") {
+            後煞data = 1;
+        } else if (this.後煞 == "後警") {
+            後煞data = 0.5;
+        }
+
+        if (this.置中 == "置中") {
+            置中data = 1;
+        } else if (this.置中 == "偏維") {
+            置中data = 0.6;
+        } else if (this.置中 == "偏警") {
+            置中data = 0.3;
+        }
+
+        if (this.斜坡 == "斜坡") {
+            斜坡data = 1;
+        } else if (this.斜坡 == "上坡") {
+            斜坡data = 0.5;
+        }
+
+        if (this.環景 == "環景") {
+            環景data = 1;
+        }
+
+        if (this.盲點 == "盲點") {
+            盲點data = 1;
+        }
+
+        if (this.自停 == "自停") {
+            自停data = 1;
+        }
+        this.renderChart({
+            labels: ['自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
+            datasets: [{
+                label: '輔助駕駛',
+                backgroundColor: '#f87979',
+                data: [自煞data, 後煞data, 置中data, 斜坡data, 環景data, 盲點data, 自停data]
+            }]
+        }, {
+            responsive: true,
+            maintainAspectRatio: true,
+            scale: {
+                ticks: {
+                    beginAtZero: true,
+                    max: 1
+                }
+            }
+        })
+    }
+})
+
+new Vue({
+    el: '#app',
     data() {
         return {
-            cars: [], //Seed.cars,
+            cars: [],
             產地s: [],
             我要氣囊有六顆以上: false,
             我要環景: false,
@@ -15,7 +84,18 @@ const carApp = {
             我要進口: "",
             我要產地: [],
             minPrice: 40,
-            maxPrice: 300
+            maxPrice: 300,
+            chartSettings: {
+                dataType: {
+                    '自煞': 'percent',
+                    '後煞': 'percent',
+                    '置中': 'percent',
+                    '斜坡': 'percent',
+                    '環景': 'percent',
+                    '盲點': 'percent',
+                    '自停': 'percent'
+                }
+            },
         }
     },
     computed: {
@@ -136,6 +216,7 @@ const carApp = {
                     return Number(car.價格) <= Number(maxPrice);
                 });
             }
+
             return cars;
         },
     },
@@ -145,8 +226,9 @@ const carApp = {
         axios
             .get("https://spreadsheets.google.com/feeds/list/1mhzx27NSTiFYdhkNqU7j-tXExtz-1EzNC0ayTHFZDQc/1/public/values?alt=json")
             .then(function(response) {
-                response.data.feed.entry.forEach(function(value) {
+                response.data.feed.entry.forEach(function(value, key) {
                     var car = {
+                        key: "car" + key,
                         "廠牌": value.gsx$廠牌.$t,
                         "車名": value.gsx$車名.$t,
                         "形式": value.gsx$形式.$t,
@@ -171,57 +253,12 @@ const carApp = {
                         "行李容積": value.gsx$行李容積.$t,
                         "移除": value.gsx$移除.$t,
                         "進口": value.gsx$進口.$t,
-                        "動力系統": value.gsx$動力系統.$t,
+                        "動力系統": value.gsx$動力系統.$t
                     };
+
                     if (!產地s.includes(car.進口) && car.進口) 產地s.push(car.進口);
                     cars.push(car);
                 });
             });
     }
-};
-
-Vue.createApp(carApp).mount("#app");
-
-var s = ``;
-// loadData(s);
-function loadData(s) {
-    var 廠牌 = "";
-    var 車名 = "";
-    var qs = s.split("\n");
-    qs.forEach((q, i1) => {
-        if (q == "") {
-            車名 = qs[i1 + 1];
-        }
-        var ws = q.split(" ");
-        var es = [];
-        ws.forEach(w => {
-            if (w != "") es.push(w);
-        });
-        es.forEach((e, i2) => {
-            if (e.includes("[")) {
-                廠牌 = e.substring(1, e.length - 1);
-            } else if (i2 == 0) {
-                document.write('<div>},</div>');
-                document.write('<div>{</div>');
-                document.write('<div>廠牌: "' + 廠牌 + '",</div>');
-                document.write('<div>車名: "' + 車名 + '",</div>');
-                document.write('<div>形式: "' + e + '",</div>');
-            } else if (i2 == 1) {
-                document.write('<div>價格: "' + e + '",</div>');
-            } else if (e.includes("具")) {
-                document.write('<div>氣囊: "' + e.substring(0, e.length - 1) + '",</div>');
-            } else if (e.includes("定") || e.includes("半Ａ") || e.includes("全Ａ")) {
-                document.write('<div>定速: "' + e + '",</div>');
-            } else if (e.includes("上坡") || e.includes("自煞") || e.includes("盲點") || e.includes("斜坡")) {
-                var rs = e.split(".");
-                rs.forEach(r => {
-                    document.write('<div>' + r + ': "' + r + '",</div>');
-                });
-            } else if (!isNaN(e)) {
-                document.write('<div>油耗: "' + e + '",</div>');
-            } else {
-                document.write('<div>備註: "' + e + '",</div>');
-            }
-        });
-    });
-}
+})
