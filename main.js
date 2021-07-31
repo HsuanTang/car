@@ -4,12 +4,13 @@ const carApp = {
             cars: [], //Seed.cars,
             產地s: [],
             我要氣囊有六顆以上: false,
-            我要自煞: false,
-            我要前預: false,
+            我要環景: false,
             我要盲點: false,
-            我要偏維: false,
-            我要上坡: false,
-            我要偏警: false,
+            我要自停: false,
+            我要自煞: "",
+            我要後煞: "",
+            我要置中: "",
+            我要斜坡: "",
             我要定速: "",
             我要進口: "",
             我要產地: [],
@@ -28,14 +29,9 @@ const carApp = {
                     return car.氣囊 >= 6;
                 });
             }
-            if (this.我要自煞) {
+            if (this.我要環景) {
                 cars = cars.filter(function(car) {
-                    return car.自煞;
-                });
-            }
-            if (this.我要前預) {
-                cars = cars.filter(function(car) {
-                    return car.前預;
+                    return car.環景;
                 });
             }
             if (this.我要盲點) {
@@ -43,24 +39,56 @@ const carApp = {
                     return car.盲點;
                 });
             }
-            if (this.我要偏維) {
+            if (this.我要自停) {
                 cars = cars.filter(function(car) {
-                    return car.偏維;
+                    return car.自停;
                 });
             }
-            if (this.我要偏警) {
-                cars = cars.filter(function(car) {
-                    return car.偏警 || car.偏維;
-                });
-            }
-            if (this.我要上坡) {
-                if (this.我要上坡 == "上坡") {
+            if (this.我要自煞) {
+                if (this.我要自煞 == "前預") {
                     cars = cars.filter(function(car) {
-                        return car.上坡 == "上坡" || car.上坡 == "斜坡";
+                        return car.自煞 == "前預" || car.自煞 == "自煞";
                     });
-                } else if (this.我要上坡 == "斜坡") {
+                } else if (this.我要自煞 == "自煞") {
                     cars = cars.filter(function(car) {
-                        return car.上坡 == "斜坡";
+                        return car.自煞 == "自煞";
+                    });
+                }
+            }
+            if (this.我要後煞) {
+                if (this.我要後煞 == "後警") {
+                    cars = cars.filter(function(car) {
+                        return car.後煞 == "後警" || car.後煞 == "後煞";
+                    });
+                } else if (this.我要後煞 == "後煞") {
+                    cars = cars.filter(function(car) {
+                        return car.後煞 == "後煞";
+                    });
+                }
+            }
+            if (this.我要置中) {
+                if (this.我要置中 == "偏警") {
+                    cars = cars.filter(function(car) {
+                        return car.置中 == "偏警" || car.置中 == "偏維" || car.置中 == "置中";
+                    });
+                } else if (this.我要置中 == "偏維") {
+                    cars = cars.filter(function(car) {
+                        return car.置中 == "偏維" || car.置中 == "置中";
+                    });
+                } else if (this.我要置中 == "置中") {
+                    cars = cars.filter(function(car) {
+                        return car.置中 == "置中";
+                    });
+                }
+            }
+            if (this.我要斜坡) {
+                if (this.我要斜坡 == "上坡") {
+                    cars = cars.filter(function(car) {
+                        return car.斜坡 == "上坡" || car.斜坡 == "斜坡";
+                    });
+                } else if (this.我要斜坡 == "斜坡") {
+                    cars = cars.filter(function(car) {
+                        return car.斜坡 == "斜坡";
                     });
                 }
             }
@@ -127,11 +155,12 @@ const carApp = {
                         "定速": value.gsx$定速.$t,
                         "氣囊": value.gsx$氣囊.$t,
                         "自煞": value.gsx$自煞.$t,
-                        "前預": value.gsx$前預.$t,
+                        "後煞": value.gsx$後煞.$t,
+                        "置中": value.gsx$置中.$t,
+                        "斜坡": value.gsx$斜坡.$t,
+                        "環景": value.gsx$環景.$t,
                         "盲點": value.gsx$盲點.$t,
-                        "偏維": value.gsx$偏維.$t,
-                        "上坡": value.gsx$上坡.$t,
-                        "偏警": value.gsx$偏警.$t,
+                        "自停": value.gsx$自停.$t,
                         "備註": value.gsx$備註.$t,
                         "馬力": value.gsx$馬力.$t,
                         "扭力": value.gsx$扭力.$t,
