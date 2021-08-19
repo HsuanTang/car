@@ -24,9 +24,9 @@ Vue.component('radar-chart', {
         if (this.置中 == "置中") {
             置中data = 1;
         } else if (this.置中 == "偏維") {
-            置中data = 0.6;
+            置中data = 0.7;
         } else if (this.置中 == "偏警") {
-            置中data = 0.3;
+            置中data = 0.4;
         }
 
         if (this.斜坡 == "斜坡") {
@@ -37,6 +37,8 @@ Vue.component('radar-chart', {
 
         if (this.環景 == "環景") {
             環景data = 1;
+        } else if (this.環景 == "倒顯") {
+            環景data = 0.5;
         }
 
         if (this.盲點 == "盲點") {
@@ -80,6 +82,7 @@ new Vue({
             我要後煞: "",
             我要置中: "",
             我要斜坡: "",
+            我要環景: "",
             我要定速: "",
             我要進口: "",
             我要產地: [],
@@ -172,6 +175,17 @@ new Vue({
                     });
                 }
             }
+            if (this.我要環景) {
+                if (this.我要環景 == "倒顯") {
+                    cars = cars.filter(function(car) {
+                        return car.環景 == "倒顯" || car.斜坡 == "環景";
+                    });
+                } else if (this.我要環景 == "斜坡") {
+                    cars = cars.filter(function(car) {
+                        return car.環景 == "環景";
+                    });
+                }
+            }
             if (this.我要定速) {
                 if (this.我要定速 == "定速") {
                     cars = cars.filter(function(car) {
@@ -224,41 +238,27 @@ new Vue({
         var cars = this.cars;
         var 產地s = this.產地s;
         axios
-            .get("https://spreadsheets.google.com/feeds/list/1mhzx27NSTiFYdhkNqU7j-tXExtz-1EzNC0ayTHFZDQc/1/public/values?alt=json")
+            .get("https://sheets.googleapis.com/v4/spreadsheets/1mhzx27NSTiFYdhkNqU7j-tXExtz-1EzNC0ayTHFZDQc/values/car?key=AIzaSyDZE5gUohczbofI8O87PkWDUZPh17A0_iE")
             .then(function(response) {
-                response.data.feed.entry.forEach(function(value, key) {
-                    var car = {
-                        key: "car" + key,
-                        "廠牌": value.gsx$廠牌.$t,
-                        "車名": value.gsx$車名.$t,
-                        "形式": value.gsx$形式.$t,
-                        "價格": value.gsx$價格.$t,
-                        "油耗": value.gsx$油耗.$t,
-                        "定速": value.gsx$定速.$t,
-                        "氣囊": value.gsx$氣囊.$t,
-                        "自煞": value.gsx$自煞.$t,
-                        "後煞": value.gsx$後煞.$t,
-                        "置中": value.gsx$置中.$t,
-                        "斜坡": value.gsx$斜坡.$t,
-                        "環景": value.gsx$環景.$t,
-                        "盲點": value.gsx$盲點.$t,
-                        "自停": value.gsx$自停.$t,
-                        "備註": value.gsx$備註.$t,
-                        "馬力": value.gsx$馬力.$t,
-                        "扭力": value.gsx$扭力.$t,
-                        "變速": value.gsx$變速.$t,
-                        "車長": value.gsx$車長.$t,
-                        "車寬": value.gsx$車寬.$t,
-                        "車高": value.gsx$車高.$t,
-                        "行李容積": value.gsx$行李容積.$t,
-                        "移除": value.gsx$移除.$t,
-                        "進口": value.gsx$進口.$t,
-                        "動力系統": value.gsx$動力系統.$t
-                    };
-
+                var values = convertToJSON(response.data.values);
+                values.forEach(function(value, key) {
+                    var car = value;
                     if (!產地s.includes(car.進口) && car.進口) 產地s.push(car.進口);
                     cars.push(car);
                 });
             });
     }
 })
+
+function convertToJSON(array) {
+    var objArray = [];
+    for (var i = 1; i < array.length; i++) {
+        objArray[i - 1] = {};
+        for (var k = 0; k < array[0].length && k < array[i].length; k++) {
+            var key = array[0][k];
+            objArray[i - 1][key] = array[i][k]
+        }
+    }
+
+    return objArray;
+}
