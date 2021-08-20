@@ -187,7 +187,7 @@
                                 <span class="tag is-medium color04" v-if="car.進口">{{ car.進口 }}</span>
                                 <span class="tag is-medium color05" v-if="car.動力系統">{{ car.動力系統 }}</span>
                             </div>
-                            <radar-chart :自煞="car.自煞" :後煞="car.後煞" :置中="car.置中" :斜坡="car.斜坡" :環景="car.環景" :盲點="car.盲點" :自停="car.自停"></radar-chart>
+                            <radar-chart :carkey="car.key" :自煞="car.自煞" :後煞="car.後煞" :置中="car.置中" :斜坡="car.斜坡" :環景="car.環景" :盲點="car.盲點" :自停="car.自停"></radar-chart>
                         </div>
                     </article>
                 </div>
@@ -201,7 +201,7 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./seed.js?20210310"></script>
-    <script src="./main.js?202108191"></script>
+    <script src="./main.js?202108213"></script>
 </body>
 
 </html>

@@ -1,70 +1,74 @@
 Vue.component('radar-chart', {
     extends: VueChartJs.Radar,
-    props: ['自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
-    mounted() {
-        var 自煞data = 0.1;
-        var 後煞data = 0.1;
-        var 置中data = 0.1;
-        var 斜坡data = 0.1;
-        var 環景data = 0.1;
-        var 盲點data = 0.1;
-        var 自停data = 0.1;
-        if (this.自煞 == "自煞") {
-            自煞data = 1;
-        } else if (this.自煞 == "前預") {
-            自煞data = 0.5;
-        }
-
-        if (this.後煞 == "後煞") {
-            後煞data = 1;
-        } else if (this.後煞 == "後警") {
-            後煞data = 0.5;
-        }
-
-        if (this.置中 == "置中") {
-            置中data = 1;
-        } else if (this.置中 == "偏維") {
-            置中data = 0.7;
-        } else if (this.置中 == "偏警") {
-            置中data = 0.4;
-        }
-
-        if (this.斜坡 == "斜坡") {
-            斜坡data = 1;
-        } else if (this.斜坡 == "上坡") {
-            斜坡data = 0.5;
-        }
-
-        if (this.環景 == "環景") {
-            環景data = 1;
-        } else if (this.環景 == "倒顯") {
-            環景data = 0.5;
-        }
-
-        if (this.盲點 == "盲點") {
-            盲點data = 1;
-        }
-
-        if (this.自停 == "自停") {
-            自停data = 1;
-        }
-        this.renderChart({
-            labels: ['自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
-            datasets: [{
-                label: '輔助駕駛',
-                backgroundColor: '#f87979',
-                data: [自煞data, 後煞data, 置中data, 斜坡data, 環景data, 盲點data, 自停data]
-            }]
-        }, {
-            responsive: true,
-            maintainAspectRatio: true,
-            scale: {
-                ticks: {
-                    beginAtZero: true,
-                    max: 1
-                }
+    props: ['carkey', '自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
+    watch: {
+        carkey: function(newVal, oldVal) {
+            console.log('key changed: ', newVal, ' | was: ', oldVal);
+            console.log(this.後煞);
+            var 自煞data = 0.1;
+            var 後煞data = 0.1;
+            var 置中data = 0.1;
+            var 斜坡data = 0.1;
+            var 環景data = 0.1;
+            var 盲點data = 0.1;
+            var 自停data = 0.1;
+            if (this.自煞 == "自煞") {
+                自煞data = 1;
+            } else if (this.自煞 == "前預") {
+                自煞data = 0.5;
             }
-        })
+
+            if (this.後煞 == "後煞") {
+                後煞data = 1;
+            } else if (this.後煞 == "後警") {
+                後煞data = 0.5;
+            }
+
+            if (this.置中 == "置中") {
+                置中data = 1;
+            } else if (this.置中 == "偏維") {
+                置中data = 0.7;
+            } else if (this.置中 == "偏警") {
+                置中data = 0.4;
+            }
+
+            if (this.斜坡 == "斜坡") {
+                斜坡data = 1;
+            } else if (this.斜坡 == "上坡") {
+                斜坡data = 0.5;
+            }
+
+            if (this.環景 == "環景") {
+                環景data = 1;
+            } else if (this.環景 == "倒顯") {
+                環景data = 0.5;
+            }
+
+            if (this.盲點 == "盲點") {
+                盲點data = 1;
+            }
+
+            if (this.自停 == "自停") {
+                自停data = 1;
+            }
+            this.renderChart({
+                labels: ['自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
+                datasets: [{
+                    label: '輔助駕駛',
+                    backgroundColor: '#f87979',
+                    data: [自煞data, 後煞data, 置中data, 斜坡data, 環景data, 盲點data, 自停data]
+                }]
+            }, {
+                responsive: true,
+                maintainAspectRatio: true,
+                scale: {
+                    ticks: {
+                        beginAtZero: true,
+                        max: 1
+                    }
+                }
+            })
+        }
     }
 })
 
@@ -243,6 +247,7 @@ new Vue({
                 var values = convertToJSON(response.data.values);
                 values.forEach(function(value, key) {
                     var car = value;
+                    car.key = "car" + key;
                     if (!產地s.includes(car.進口) && car.進口) 產地s.push(car.進口);
                     cars.push(car);
                 });
