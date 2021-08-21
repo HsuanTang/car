@@ -1,10 +1,8 @@
 Vue.component('radar-chart', {
     extends: VueChartJs.Radar,
     props: ['carkey', '自煞', '後煞', '置中', '斜坡', '環景', '盲點', '自停'],
-    watch: {
-        carkey: function(newVal, oldVal) {
-            console.log('key changed: ', newVal, ' | was: ', oldVal);
-            console.log(this.後煞);
+    methods: {
+        draw() {
             var 自煞data = 0.1;
             var 後煞data = 0.1;
             var 置中data = 0.1;
@@ -67,7 +65,15 @@ Vue.component('radar-chart', {
                         max: 1
                     }
                 }
-            })
+            });
+        }
+    },
+    mounted: function() {
+        this.draw();
+    },
+    watch: {
+        carkey: function(newVal, oldVal) {
+            this.draw();
         }
     }
 })
@@ -108,9 +114,11 @@ new Vue({
     computed: {
         filteredCars() {
             var cars = this.cars;
+            console.log(cars.length);
             cars = cars.filter(function(car) {
-                return car.移除 == "";
+                return car.移除 !== "移除";
             });
+            console.log(cars.length);
             if (this.我要氣囊有六顆以上) {
                 cars = cars.filter(function(car) {
                     return car.氣囊 >= 6;
@@ -234,7 +242,7 @@ new Vue({
                     return Number(car.價格) <= Number(maxPrice);
                 });
             }
-
+            console.log(cars);
             return cars;
         },
     },

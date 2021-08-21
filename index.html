@@ -5,7 +5,7 @@
     <title>百萬左右熱門新車主被動安全配備整理</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
-    <link rel="stylesheet" href="./style.css?20210310">
+    <link rel="stylesheet" href="./style.css?20210821">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FB3GRBV0PF"></script>
@@ -84,7 +84,7 @@
                         <button class="button" @click="我要置中 = '';" :class="{ 'is-primary': 我要置中 == '' }">不在乎</button>
                         <button class="button" @click="我要置中 = '偏警';" :class="{ 'is-primary': 我要置中 == '偏警' }">至少偏警</button>
                         <button class="button" @click="我要置中 = '偏維';" :class="{ 'is-primary': 我要置中 == '偏維' }">至少偏維</button>
-                        <button class="button" @click="我要置中 = '置中';" :class="{ 'is-primary': 我要置中 == '置中' }">車輛主動拉回</button>
+                        <button class="button" @click="我要置中 = '置中';" :class="{ 'is-primary': 我要置中 == '置中' }">置中</button>
                     </div>
                 </div>
                 <div class="field has-addons">
@@ -171,6 +171,7 @@
                                 <span class="tag is-medium maroon" v-if="car.自停">{{ car.自停 }}</span>
                             </div>
                             <div>
+                                <span class="tag is-medium color06" v-if="car.排氣量">{{ car.排氣量 }} 排氣量</span>
                                 <span class="tag is-medium purple" v-if="car.馬力">{{ car.馬力 }} 馬力</span>
                                 <span class="tag is-medium black" v-if="car.扭力">{{ car.扭力 }} 扭力</span>
                                 <span class="tag is-medium gray" v-if="car.變速">{{ car.變速 }}</span>
@@ -200,8 +201,8 @@
     <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./seed.js?20210310"></script>
-    <script src="./main.js?202108213"></script>
+    <script src="./seed.js?20210821"></script>
+    <script src="./main.js?202108214"></script>
 </body>
 
 </html>
